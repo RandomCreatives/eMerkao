@@ -1,0 +1,9 @@
+
+{
+  "name": "eMerkato - Ethiopian Digital Marketplace",
+  "description": "A comprehensive e-commerce platform tailored for the Ethiopian market, featuring local payment integrations like Telebirr, cultural categories, and a seamless seller experience with Telegram bot automation.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

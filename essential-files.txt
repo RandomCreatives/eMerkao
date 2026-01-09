@@ -1,0 +1,65 @@
+Essential files to upload to GitHub:
+
+Core Application Files:
+- package.json
+- package-lock.json
+- next.config.js
+- tsconfig.json
+- tailwind.config.js
+- postcss.config.js
+- .gitignore
+- .env.example
+
+Main App Files:
+- App.tsx
+- index.tsx
+- index.html
+- constants.tsx
+- types.ts
+- vite.config.ts
+
+Components:
+- components/AuthProvider.tsx
+- components/BottomNav.tsx
+- components/Header.tsx
+- components/LanguageSelector.tsx
+- components/ProductCard.tsx
+- components/ProductModal.tsx
+
+Pages:
+- pages/Auth.tsx
+- pages/BuyerDashboard.tsx
+- pages/Cart.tsx
+- pages/Home.tsx
+- pages/SellerDashboard.tsx
+- pages/Shop.tsx
+- pages/_app.tsx
+- pages/index.tsx
+- pages/telegram-link.tsx
+- pages/api/telegram/link.ts
+- pages/api/telegram/webhook.ts
+
+Lib & Services:
+- lib/database.types.ts
+- lib/supabase.ts
+- hooks/useSupabase.ts
+- services/geminiService.ts
+- services/telegramService.ts
+
+Styles:
+- styles/globals.css
+
+Database:
+- supabase/migrations/001_initial_schema.sql
+- supabase/migrations/002_rls_policies.sql
+- supabase/migrations/003_seed_data.sql
+- supabase/migrations/004_auth_triggers.sql
+
+Documentation:
+- README.md
+- SETUP.md
+- STATUS.md
+- DASHBOARD_FEATURES.md
+- LOGOUT_FIX.md
+- metadata.json
+- next-env.d.ts
