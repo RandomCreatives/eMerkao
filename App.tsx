@@ -35,8 +35,7 @@ const App: React.FC = () => {
   const [historyPointer, setHistoryPointer] = useState(0);
 
   // Check if we're in demo mode (no Supabase configured)
-  const isDemoMode = !process.env.NEXT_PUBLIC_SUPABASE_URL || 
-                     process.env.NEXT_PUBLIC_SUPABASE_URL === 'your_supabase_project_url';
+  const isDemoMode = !((typeof import.meta !== 'undefined' ? (import.meta as any).env?.VITE_SUPABASE_URL : null) || (typeof process !== 'undefined' ? process.env?.NEXT_PUBLIC_SUPABASE_URL : null));
 
   const addToast = (message: string) => {
     const id = Date.now();

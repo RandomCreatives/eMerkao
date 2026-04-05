@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 import { Database } from './database.types'
 
-// Environment variables with fallbacks for development
+// Environment variables for Next.js
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
@@ -99,12 +99,13 @@ const createMockClient = () => ({
     error: { message: `Demo Mode: Cannot call function ${functionName}. Database not configured.` } 
   }),
   channel: (name: string) => ({
-    on: (event: string, config: any, callback: Function) => ({ 
-      subscribe: () => {
-        console.log(`Mock subscription to ${name} channel created`);
-        return { unsubscribe: () => console.log(`Mock subscription to ${name} unsubscribed`) };
-      }
-    })
+    on: (event: string, config: any, callback: Function) => ({
+      on: (event: string, config: any, callback: Function) => ({
+        subscribe: () => ({ unsubscribe: () => {} })
+      }),
+      subscribe: () => ({ unsubscribe: () => {} })
+    }),
+    subscribe: () => ({ unsubscribe: () => {} })
   })
 })
 
