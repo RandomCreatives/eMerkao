@@ -8,8 +8,11 @@ import { MOCK_PRODUCTS, CULTURAL_CATEGORIES } from '../../constants'
 import ProductCard from '../../components/ProductCard'
 import { ArrowRight, Zap, Award, Truck, Sparkles } from 'lucide-react'
 import { getSmartSuggestions } from '../../services/geminiService'
+import { useAuth } from '../../components/AuthContext'
 
 export default function HomeClient() {
+  const { user } = useAuth()
+  const sellerHref = user ? '/seller' : '/auth?redirect=/seller'
   const [aiSuggestions, setAiSuggestions] = useState<{ name: string; reason: string }[]>([])
   const [loadingAi, setLoadingAi] = useState(false)
 
@@ -51,7 +54,7 @@ export default function HomeClient() {
               Start Shopping <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
-              href="/seller"
+              href={sellerHref}
               className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 px-10 py-5 rounded-2xl font-black transition-all text-center text-xs uppercase tracking-widest"
             >
               Open a Store
@@ -186,7 +189,7 @@ export default function HomeClient() {
         </p>
         <div className="pt-4 relative z-10">
           <Link
-            href="/seller"
+            href={sellerHref}
             className="bg-white text-stone-900 px-12 py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-orange-600 hover:text-white transition-all shadow-xl inline-block"
           >
             Create Merchant Account

@@ -59,13 +59,13 @@ export default function GlobalHeader() {
               )}
             </button>
 
-            {/* Sell button */}
+            {/* Sell button — goes to auth if guest, dashboard if logged in */}
             <Link
-              href="/seller"
+              href={user ? '/seller' : '/auth?redirect=/seller'}
               className="hidden md:flex items-center gap-2 bg-stone-800 text-white px-4 py-2 rounded-xl hover:bg-black transition-all font-bold text-sm"
             >
               <Store className="w-4 h-4" />
-              <span>Sell</span>
+              <span>{user ? 'Dashboard' : 'Sell'}</span>
             </Link>
 
             {/* User */}

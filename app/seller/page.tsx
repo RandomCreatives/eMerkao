@@ -1,15 +1,18 @@
 'use client'
 
 import React, { useState } from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import {
   Package, TrendingUp, ShieldCheck, Plus, BarChart2,
   RefreshCw, Clock, CheckCircle, Wallet, Sparkles,
-  ToggleLeft, ToggleRight, Send
+  ToggleLeft, ToggleRight, Send, Store, ArrowRight
 } from 'lucide-react'
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar
 } from 'recharts'
 import { MOCK_PRODUCTS } from '../../constants'
+import { useAuth } from '../../components/AuthContext'
 
 type Tab = 'overview' | 'orders' | 'products' | 'analytics' | 'payouts'
 
@@ -35,6 +38,7 @@ const ESCROW_CONFIG: Record<string, { label: string; color: string }> = {
 }
 
 export default function SellerDashboard() {
+  const { user, loading } = useAuth()
   const [tab, setTab] = useState<Tab>('overview')
   const [productActive, setProductActive] = useState<Record<string, boolean>>(
     Object.fromEntries(MOCK_PRODUCTS.map(p => [p.id, true]))
@@ -64,6 +68,45 @@ export default function SellerDashboard() {
     { id: 'analytics', label: 'Analytics' },
     { id: 'payouts', label: 'Payouts' },
   ]
+
+  // Auth gate — show sign-in prompt if not logged in
+  if (!loading && !user) {
+    return (
+      <div className="min-h-[70vh] flex items-center justify-center">
+        <div className="text-center space-y-6 max-w-sm px-4">
+          <div className="w-20 h-20 bg-orange-100 rounded-3xl flex items-center justify-center mx-auto">
+            <Store className="w-10 h-10 text-orange-600" />
+          </div>
+          <div>
+            <h1 className="text-2xl font-black text-stone-900 tracking-tight">Seller Dashboard</h1>
+            <p className="text-stone-400 text-sm mt-2">Sign in to manage your eMerkato store, track orders, and view analytics.</p>
+          </div>
+          <div className="space-y-3">
+            <Link
+              href="/auth?redirect=/seller"
+              className="w-full flex items-center justify-center gap-2 bg-orange-600 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-orange-700 transition-colors shadow-lg shadow-orange-600/20"
+            >
+              Sign In to Dashboard <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/vendor/register"
+              className="w-full flex items-center justify-center gap-2 border border-stone-200 text-stone-700 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-stone-50 transition-colors"
+            >
+              Create Merchant Account
+            </Link>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-[70vh] flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-orange-600 border-t-transparent rounded-full animate-spin" />
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-6">
